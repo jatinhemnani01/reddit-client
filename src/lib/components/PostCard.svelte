@@ -4,6 +4,10 @@
   export let imgUrl = "";
   export let subreddit = "";
   export let title = "";
+
+  function isImage(url) {
+    return url.match(/png|jpg|jpeg|gif|wepb$/);
+  }
 </script>
 
 <div
@@ -14,7 +18,14 @@
   <div class=" flex flex-row justify-between p-2">
     <div class="text-xl font-bold  flex ml-5">{title}</div>
     <div class="flex justify-center ">
-      {#if imgUrl === ""}
+      {#if isImage(imgUrl)}
+        <img
+          id="post-image"
+          src={imgUrl}
+          alt=""
+          class="rounded object-contain"
+        />
+      {:else}
         <div
           class="bg-gray-700 flex justify-center 
         h-20 items-center"
@@ -22,13 +33,6 @@
         >
           <i style="font-size: 30px; color: black;" class="fa fa-sticky-note" />
         </div>
-      {:else}
-        <img
-          id="post-image"
-          src={imgUrl}
-          alt=""
-          class="rounded object-contain"
-        />
       {/if}
     </div>
   </div>
