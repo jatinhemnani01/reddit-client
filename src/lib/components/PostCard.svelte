@@ -7,6 +7,7 @@
   export let data;
   export let upvote;
   export let commentsCount;
+  export let author = "";
   function getVideoUrl(post) {
     if (post.media) {
       return post.media.reddit_video.fallback_url;
@@ -29,21 +30,27 @@
   id="card"
   class="rounded shadow border w-full bg-gray-800 mt-1 text-gray-300 "
 >
-  <div class="mt-1 ml-2 font-medium">{subreddit}</div>
-  <div class=" flex flex-row justify-between p-2 ">
-    <div class="text-xl font-bold  flex ml-5 items-center">{title}</div>
+  <div class="mt-1 ml-2 font-medium text-gray-400 ml-5">r/{subreddit}</div>
+  <div class="ml-5 text-sm text-gray-500 mt-2">Posted by u/{author}</div>
+  <div class=" flex flex-col justify-between p-2 ">
+    <div class="text-xl font-bold  flex ml-5 items-center mb-5">{title}</div>
     <div class="flex justify-center ">
       {#if isImage(imgUrl)}
         <img
-          id="post-image"
+          id="post-image "
           src={imgUrl}
           alt=""
-          class="rounded object-contain"
+          class="rounded object-contain max-w-lg min-w-0"
         />
       {/if}
       {#if isVideo(data)}
         <!-- svelte-ignore a11y-media-has-caption -->
-        <video width="200" controls loop>
+        <video
+          width="200"
+          controls
+          loop
+          class="rounded object-contain max-w-lg min-w-0"
+        >
           <source type="video/mp4" src={getVideoUrl(data)} />
         </video>
       {/if}
@@ -54,18 +61,21 @@
 </div>
 
 <style>
-  #post-image {
-    width: 11em;
-  }
-  @media screen and (max-width: 450px) {
-    #post-image {
-      width: 6em;
-    }
-  }
   #card:hover {
     border: solid 1px orange;
   }
   #card {
     width: 70%;
+  }
+
+  @media screen and (max-width: 550px) {
+    #card {
+      width: 80%;
+    }
+  }
+  @media screen and (max-width: 430px) {
+    #card {
+      width: 100%;
+    }
   }
 </style>

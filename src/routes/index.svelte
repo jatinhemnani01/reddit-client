@@ -16,6 +16,8 @@
         data={item.data}
         commentsCount={item.data.num_comments}
         upvote={item.data.ups}
+        subreddit={item.data.subreddit}
+        author={item.data.author}
       />
     </div>
   {/each}
