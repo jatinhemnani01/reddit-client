@@ -1,5 +1,6 @@
 <script>
   import ActionButtons from "$lib/components/ActionButtons.svelte";
+  import Modal from "$lib/components/Modal.svelte";
 
   export let imgUrl = "";
   export let subreddit = "";
@@ -8,6 +9,8 @@
   export let upvote;
   export let commentsCount;
   export let author = "";
+
+  let isOpen = false;
   function getVideoUrl(post) {
     if (post.media) {
       return post.media.reddit_video.fallback_url;
@@ -37,9 +40,10 @@
     <div class="flex justify-center ">
       {#if isImage(imgUrl)}
         <img
+          on:click={() => (isOpen = !isOpen)}
           id="post-image "
           src={imgUrl}
-          alt=""
+          alt={title}
           class="rounded object-contain max-w-lg min-w-0"
         />
       {/if}
@@ -54,6 +58,19 @@
   <hr style="border-top: 1px solid white;" />
   <ActionButtons {commentsCount} {upvote} />
 </div>
+
+<Modal {isOpen}>
+  <div class="modal-header " style="object-fit: cover;">
+    <button
+      type="button"
+      class="text-3xl float-right mr-5"
+      on:click={() => (isOpen = false)}
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <img src={imgUrl} alt={title} />
+</Modal>
 
 <style>
   #card:hover {
