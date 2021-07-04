@@ -60,16 +60,15 @@
 </div>
 
 <Modal {isOpen}>
-  <div class="modal-header " style="object-fit: cover;">
-    <button
-      type="button"
-      class="text-3xl float-right mr-5"
-      on:click={() => (isOpen = false)}
-    >
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <img src={imgUrl} alt={title} />
+  <div class="modal-header " style="object-fit: cover;" />
+  <img
+    style="
+    height: 100vh;
+    width: 100%;
+    object-fit: contain;"
+    src={imgUrl}
+    alt={title}
+  />
 </Modal>
 
 <style>

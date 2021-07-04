@@ -6,13 +6,13 @@
 {#if isOpen}
   <div
     transition:fly={{ duration: 300, y: -300 }}
-    class="modal w-30 flex justify-center"
+    class="modal"
     on:click={() => (isOpen = false)}
   >
     <div class="backdrop" />
 
     <div class="content-wrapper">
-      <div class="content">
+      <div class="content flex flex-col justify-center items-center">
         <slot />
       </div>
     </div>
