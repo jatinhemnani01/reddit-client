@@ -4,6 +4,21 @@
   export let imgUrl = "";
   export let subreddit = "";
   export let title = "";
+  export let data;
+  console.log(data);
+
+  function getVideoUrl(post) {
+    if (post.media) {
+      return post.media.reddit_video.scrubber_media_url;
+    }
+    const parts = post.url.split(".");
+    parts.pop();
+    return parts.concat(".mp4").join("");
+  }
+
+  function isVideo(post) {
+    return post.media || post.url.match(/mp4|gifv|mkv|mov|webm$/);
+  }
 
   function isImage(url) {
     return url.match(/png|jpg|jpeg|gif|wepb$/);
@@ -25,14 +40,12 @@
           alt=""
           class="rounded object-contain"
         />
-      {:else}
-        <div
-          class="bg-gray-700 flex justify-center 
-        h-20 items-center"
-          id="post-image"
-        >
-          <i style="font-size: 30px; color: black;" class="fa fa-sticky-note" />
-        </div>
+      {/if}
+      {#if isVideo(data)}
+        <!-- svelte-ignore a11y-media-has-caption -->
+        <video width="200" controls>
+          <source type="video/mp4" src={getVideoUrl(data)} />
+        </video>
       {/if}
     </div>
   </div>

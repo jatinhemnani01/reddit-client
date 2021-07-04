@@ -2,6 +2,7 @@
   import PostCard from "$lib/components/PostCard.svelte";
   import { getPosts } from "$lib/utils/getPosts";
   import { onMount } from "svelte";
+  import { dataset_dev } from "svelte/internal";
 
   let posts = getPosts();
 </script>
@@ -10,7 +11,7 @@
   <h1>Loading...</h1>
 {:then value}
   {#each value as item}
-    <PostCard title={item.title} imgUrl={item.img} />
+    <PostCard title={item.data.title} imgUrl={item.data.url} data={item.data} />
   {/each}
 {:catch error}
   <h3>{error.message}</h3>
