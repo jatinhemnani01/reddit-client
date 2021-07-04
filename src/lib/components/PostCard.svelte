@@ -45,12 +45,7 @@
       {/if}
       {#if isVideo(data)}
         <!-- svelte-ignore a11y-media-has-caption -->
-        <video
-          width="200"
-          controls
-          loop
-          class="rounded object-contain max-w-lg min-w-0"
-        >
+        <video controls loop class="rounded object-contain max-w-lg min-w-0">
           <source type="video/mp4" src={getVideoUrl(data)} />
         </video>
       {/if}
