@@ -9,11 +9,11 @@
 
   function getVideoUrl(post) {
     if (post.media) {
-      return post.media.reddit_video.scrubber_media_url;
+      return post.media.reddit_video.fallback_url;
     }
     const parts = post.url.split(".");
     parts.pop();
-    return parts.concat(".mp4").join("");
+    return parts.concat("mp4").join(".");
   }
 
   function isVideo(post) {
@@ -43,7 +43,7 @@
       {/if}
       {#if isVideo(data)}
         <!-- svelte-ignore a11y-media-has-caption -->
-        <video width="200" controls>
+        <video width="200" controls loop>
           <source type="video/mp4" src={getVideoUrl(data)} />
         </video>
       {/if}
