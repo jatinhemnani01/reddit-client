@@ -5,8 +5,8 @@
   export let subreddit = "";
   export let title = "";
   export let data;
-  console.log(data);
-
+  export let upvote;
+  export let commentsCount;
   function getVideoUrl(post) {
     if (post.media) {
       return post.media.reddit_video.fallback_url;
@@ -27,11 +27,11 @@
 
 <div
   id="card"
-  class="rounded shadow border w-full bg-gray-800 mt-1 text-gray-300 cursor-pointer"
+  class="rounded shadow border w-full bg-gray-800 mt-1 text-gray-300 "
 >
   <div class="mt-1 ml-2 font-medium">{subreddit}</div>
-  <div class=" flex flex-row justify-between p-2">
-    <div class="text-xl font-bold  flex ml-5">{title}</div>
+  <div class=" flex flex-row justify-between p-2 ">
+    <div class="text-xl font-bold  flex ml-5 items-center">{title}</div>
     <div class="flex justify-center ">
       {#if isImage(imgUrl)}
         <img
@@ -50,12 +50,12 @@
     </div>
   </div>
   <hr style="border-top: 1px solid white;" />
-  <ActionButtons />
+  <ActionButtons {commentsCount} {upvote} />
 </div>
 
 <style>
   #post-image {
-    width: 9em;
+    width: 11em;
   }
   @media screen and (max-width: 450px) {
     #post-image {
@@ -64,5 +64,8 @@
   }
   #card:hover {
     border: solid 1px orange;
+  }
+  #card {
+    width: 70%;
   }
 </style>
