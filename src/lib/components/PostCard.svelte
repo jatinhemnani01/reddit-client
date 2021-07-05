@@ -33,8 +33,10 @@
   id="card"
   class="rounded shadow border w-full bg-gray-800 mt-1 text-gray-300 "
 >
-  <div class="mt-1 ml-2 font-medium text-gray-400 ml-5">r/{subreddit}</div>
-  <div class="ml-5 text-sm text-gray-500 mt-2">Posted by u/{author}</div>
+<div class="mt-1 ml-2 font-medium text-blue-400 ml-5">r/{subreddit}</div>
+  <div class="ml-5 text-sm text-gray-500 mt-2">
+    Posted by <span class="text-yellow-600">u/{author}</span>
+  </div>
   <div class=" flex flex-col justify-between p-2 ">
     <div class="text-xl font-bold  flex ml-5 items-center mb-5">{title}</div>
     <div class="flex justify-center ">
@@ -65,7 +67,8 @@
     style="
     height: 90vh;
     width: 100%;
-    object-fit: contain;"
+    object-fit: contain;
+    background-color: #1b1b1b;"
     src={imgUrl}
     alt={title}
   />
