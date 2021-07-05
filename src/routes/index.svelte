@@ -21,7 +21,7 @@
   }
 
   onMount(() => {
-    getPosts($subreddit, $limit, $postType);
+    getPosts($subreddit, $limit, $postType, "");
   });
 </script>
 

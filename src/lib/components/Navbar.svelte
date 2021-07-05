@@ -1,26 +1,26 @@
 <script>
   import { subreddit } from "$lib/stores/subreddit";
+  import { posts } from "$lib/stores/posts";
+  import { postType } from "$lib/stores/postType";
+  import { loading } from "$lib/stores/loading";
+  import { limit } from "$lib/stores/limit";
 
   let val = "";
   let timer;
-
-  // let suggestions = [
-  //   "AskReddit",
-  //   "Gaming",
-  //   "Aww",
-  //   "Science",
-  //   "Videos",
-  //   "TodayiLearned",
-  //   "Movies",
-  //   "Gifs",
-  //   "LifeProTips",
-  //   "Space",
-  //   "DIY",
-  //   "CryptoCurrency",
-  //   "AskRedditAfterDark",
-  // ];
-
   let suggestions = [];
+
+  async function getPosts(sr, limit, postType, after) {
+    $posts = [];
+    $loading = true;
+    const url = `https://www.reddit.com/r/${sr}/${postType}.json?limit=${limit}&after=${after}`;
+    let res = await fetch(url);
+    if (res.ok) {
+      let data = await res.json();
+      $posts = data.data.children;
+      $loading = false;
+    }
+  }
+
   async function getSuggestions(v) {
     let res = await fetch(`https://www.reddit.com/search.json?q=${v}&type=sr`);
     let data = await res.json();
@@ -33,10 +33,9 @@
     clearTimeout(timer);
     timer = setTimeout(() => {
       getSuggestions(v);
+      $subreddit = v;
     }, 300);
   };
-
-  // https://www.reddit.com/search.json?q=programming&type=<sr></sr>
 </script>
 
 <nav class="w-full bg-gray-900 flex flex-row item-center justify-between ">
@@ -48,7 +47,12 @@
       alt="Reddit Logo"
     />
 
-    <form class="flex flex-row items-center ml-5 justify-center ">
+    <form
+      on:submit|preventDefault={() => {
+        getPosts($subreddit, $limit, $postType, "");
+      }}
+      class="flex flex-row items-center ml-5 justify-center "
+    >
       <input
         bind:value={val}
         on:keyup={({ target: { value } }) => debounce(value)}

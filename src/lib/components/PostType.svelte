@@ -28,7 +28,7 @@
     current = sel;
     $postType = sel;
 
-    getPosts($subreddit, $limit, $postType);
+    getPosts($subreddit, $limit, $postType, "");
   }
 </script>
 

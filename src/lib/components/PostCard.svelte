@@ -9,15 +9,14 @@
   export let upvote;
   export let commentsCount;
   export let author = "";
-
   let isOpen = false;
   function getVideoUrl(post) {
     if (post.media) {
       return post.media.reddit_video.fallback_url;
     }
-    const parts = post.url.split(".");
-    parts.pop();
-    return parts.concat("mp4").join(".");
+    // const parts = post.url.split(".");
+    // parts.pop();
+    // return parts.concat(".mp4").join("");
   }
 
   function isVideo(post) {
@@ -33,7 +32,7 @@
   id="card"
   class="rounded shadow border w-full bg-gray-800 mt-1 text-gray-300 "
 >
-<div class="mt-1 ml-2 font-medium text-blue-400 ml-5">r/{subreddit}</div>
+  <div class="mt-1 ml-2 font-medium text-blue-400 ml-5">r/{subreddit}</div>
   <div class="ml-5 text-sm text-gray-500 mt-2">
     Posted by <span class="text-yellow-600">u/{author}</span>
   </div>
