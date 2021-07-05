@@ -32,9 +32,11 @@
   const debounce = (v) => {
     clearTimeout(timer);
     timer = setTimeout(() => {
-      getSuggestions(v);
+      if (v.length >= 3) {
+        getSuggestions(v);
+      }
       $subreddit = v;
-    }, 300);
+    }, 200);
   };
 </script>
 
@@ -50,6 +52,7 @@
     <form
       on:submit|preventDefault={() => {
         getPosts($subreddit, $limit, $postType, "");
+        document.activeElement.blur();
       }}
       class="flex flex-row items-center ml-5 justify-center "
     >
