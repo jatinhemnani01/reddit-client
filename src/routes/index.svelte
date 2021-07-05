@@ -6,6 +6,7 @@
   import { subreddit } from "$lib/stores/subreddit";
   import { limit } from "$lib/stores/limit";
   import { postType } from "$lib/stores/postType";
+  import Loading from "$lib/components/Loading.svelte";
 
   let afterPost = "";
 
@@ -56,9 +57,8 @@
 </script>
 
 {#if $loading}
-  <h1>Loading...</h1>
+  <Loading />
 {/if}
-
 {#each $posts as item}
   <div class="flex justify-center" style="background-color: #22252b;">
     <PostCard
