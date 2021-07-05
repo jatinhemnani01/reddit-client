@@ -1,35 +1,44 @@
 <script>
   import PostCard from "$lib/components/PostCard.svelte";
-  import { getPosts } from "$lib/utils/getPosts";
+  import { onMount } from "svelte";
+  import { posts } from "$lib/stores/posts";
+  import { loading } from "$lib/stores/loading";
+  import { subreddit } from "$lib/stores/subreddit";
+  import { limit } from "$lib/stores/limit";
+  import { postType } from "$lib/stores/postType";
+  async function getPosts(subreddit, limit, postType, after) {
+    try {
+      $loading = true;
+      const url = `https://www.reddit.com/r/${subreddit}/${postType}.json?limit=${limit}&after=${after}`;
+      let res = await fetch(url);
+      let data = await res.json();
+      $posts = data.data.children;
+      $loading = false;
+    } catch (error) {
+      throw error;
+      $loading = true;
+    }
+  }
 
-  let posts = getPosts();
+  onMount(() => {
+    getPosts($subreddit, $limit, $postType);
+  });
 </script>
 
-{#await posts}
+{#if $loading}
   <h1>Loading...</h1>
-{:then value}
-  {#each value as item}
-    <div class="flex justify-center" style="background-color: #22252b;">
-      <PostCard
-        title={item.data.title}
-        imgUrl={item.data.url}
-        data={item.data}
-        commentsCount={item.data.num_comments}
-        upvote={item.data.ups}
-        subreddit={item.data.subreddit}
-        author={item.data.author}
-      />
-    </div>
-  {/each}
-{:catch error}
-  <h3>{error.message}</h3>
-{/await}
+{/if}
 
-<!-- <PostCard
-  imgUrl="https://image.shutterstock.com/image-vector/sample-stamp-square-grunge-sign-260nw-1474408826.jpg"
-/>
-<PostCard />
-<PostCard />
-<PostCard />
-<PostCard />
-<PostCard /> -->
+{#each $posts as item}
+  <div class="flex justify-center" style="background-color: #22252b;">
+    <PostCard
+      title={item.data.title}
+      imgUrl={item.data.url}
+      data={item.data}
+      commentsCount={item.data.num_comments}
+      upvote={item.data.ups}
+      subreddit={item.data.subreddit}
+      author={item.data.author}
+    />
+  </div>
+{/each}
