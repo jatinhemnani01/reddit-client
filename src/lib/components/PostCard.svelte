@@ -29,6 +29,7 @@
     <div class="flex justify-center ">
       {#if isImage(imgUrl)}
         <img
+          loading="lazy"
           on:click={() => (isOpen = !isOpen)}
           id="post-image "
           src={imgUrl}
@@ -51,6 +52,7 @@
 <Modal {isOpen}>
   <div class="modal-header " style="object-fit: cover;" />
   <img
+    loading="lazy"
     style="
     height: 90vh;
     width: 100%;

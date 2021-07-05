@@ -6,6 +6,9 @@
   import { subreddit } from "$lib/stores/subreddit";
   import { limit } from "$lib/stores/limit";
   import { postType } from "$lib/stores/postType";
+
+  let afterPost = "";
+
   async function getPosts(sr, limit, postType, after) {
     try {
       $loading = true;
@@ -13,6 +16,7 @@
       let res = await fetch(url);
       let data = await res.json();
       $posts = data.data.children;
+      afterPost = data.data.after;
       $loading = false;
     } catch (error) {
       throw error;
@@ -20,8 +24,34 @@
     }
   }
 
+  async function getPostsWith(sr, limit, postType, after) {
+    try {
+      $loading = true;
+      const url = `https://www.reddit.com/r/${sr}/${postType}.json?limit=${limit}&after=${after}`;
+      let res = await fetch(url);
+      let data = await res.json();
+      $posts = [...$posts, ...data.data.children];
+      afterPost = data.data.after;
+      $loading = false;
+    } catch (error) {
+      throw error;
+      $loading = true;
+    }
+  }
+
+  function loadMoreHandler() {
+    window.addEventListener("scroll", () => {
+      const { scrollTop, scrollHeight, clientHeight } =
+        document.documentElement;
+      if (clientHeight + scrollTop >= scrollHeight - 5) {
+        getPostsWith($subreddit, $limit, $postType, afterPost);
+      }
+    });
+  }
+
   onMount(() => {
     getPosts($subreddit, $limit, $postType, "");
+    loadMoreHandler();
   });
 </script>
 

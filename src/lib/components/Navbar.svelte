@@ -43,6 +43,7 @@
 <nav class="w-full bg-gray-900 flex flex-row item-center justify-between ">
   <div class="flex flex-row item-center ">
     <img
+      loading="lazy"
       id="logo"
       class="w-12 ml-4 mt-1 mb-1"
       src="https://logodownload.org/wp-content/uploads/2018/02/reddit-logo-16.png"
@@ -85,7 +86,7 @@
 <style>
   @media screen and (max-width: 507px) {
     #input {
-      width: 150px;
+      width: 250px;
     }
     #logo {
       width: 30px;
@@ -98,7 +99,18 @@
 
   @media screen and (max-width: 443px) {
     #input {
-      width: 100px;
+      width: 210px;
+    }
+  }
+  @media screen and (max-width: 387px) {
+    #input {
+      width: 180px;
+    }
+  }
+
+  @media screen and (max-width: 357px) {
+    #input {
+      width: 150px;
     }
   }
 </style>
