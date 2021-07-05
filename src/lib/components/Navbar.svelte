@@ -1,21 +1,42 @@
 <script>
   import { subreddit } from "$lib/stores/subreddit";
 
-  const suggestions = [
-    "AskReddit",
-    "Gaming",
-    "Aww",
-    "Science",
-    "Videos",
-    "TodayiLearned",
-    "Movies",
-    "Gifs",
-    "LifeProTips",
-    "Space",
-    "DIY",
-    "CryptoCurrency",
-    "AskRedditAfterDark",
-  ];
+  let val = "";
+  let timer;
+
+  // let suggestions = [
+  //   "AskReddit",
+  //   "Gaming",
+  //   "Aww",
+  //   "Science",
+  //   "Videos",
+  //   "TodayiLearned",
+  //   "Movies",
+  //   "Gifs",
+  //   "LifeProTips",
+  //   "Space",
+  //   "DIY",
+  //   "CryptoCurrency",
+  //   "AskRedditAfterDark",
+  // ];
+
+  let suggestions = [];
+  async function getSuggestions(v) {
+    let res = await fetch(`https://www.reddit.com/search.json?q=${v}&type=sr`);
+    let data = await res.json();
+    let main = data.data.children;
+    const mapped = main.map((post) => post.data.display_name);
+    suggestions = mapped;
+  }
+
+  const debounce = (v) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      getSuggestions(v);
+    }, 300);
+  };
+
+  // https://www.reddit.com/search.json?q=programming&type=<sr></sr>
 </script>
 
 <nav class="w-full bg-gray-900 flex flex-row item-center justify-between ">
@@ -29,6 +50,8 @@
 
     <form class="flex flex-row items-center ml-5 justify-center ">
       <input
+        bind:value={val}
+        on:keyup={({ target: { value } }) => debounce(value)}
         autocomplete="off"
         list="list"
         id="input"
