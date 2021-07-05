@@ -7,6 +7,7 @@
   <div
     transition:fly={{ duration: 300, y: -300 }}
     class="modal"
+    style="height: 100%;"
     on:click={() => (isOpen = false)}
   >
     <div class="backdrop" />

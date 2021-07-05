@@ -63,7 +63,7 @@
   <div class="modal-header " style="object-fit: cover;" />
   <img
     style="
-    height: 100vh;
+    height: 90vh;
     width: 100%;
     object-fit: contain;"
     src={imgUrl}
