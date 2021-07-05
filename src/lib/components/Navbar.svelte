@@ -1,4 +1,6 @@
 <script>
+  import { subreddit } from "$lib/stores/subreddit";
+
   const suggestions = [
     "AskReddit",
     "Gaming",
@@ -46,7 +48,7 @@
     class="text-white flex flex-row items-center justify-between list-none mr-5"
   >
     <li class="mr-5">Popular</li>
-    <li>r/programming</li>
+    <li>r/{$subreddit}</li>
   </ul>
 </nav>
 

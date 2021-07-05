@@ -1,7 +1,34 @@
 <script>
+  import { postType } from "$lib/stores/postType";
+  import { loading } from "$lib/stores/loading";
+  import { subreddit } from "$lib/stores/subreddit";
+  import { posts } from "$lib/stores/posts";
+  import { onMount } from "svelte";
+  import { limit } from "$lib/stores/limit";
   let current = "best";
+
+  async function getPosts(sr, limit, postType, after) {
+    try {
+      $posts = [];
+      $loading = true;
+      const url = `https://www.reddit.com/r/${sr}/${postType}.json?limit=${limit}&after=${after}`;
+      let res = await fetch(url);
+      let data = await res.json();
+      $posts = data.data.children;
+      $loading = false;
+    } catch (error) {
+      throw error;
+      $loading = true;
+    }
+  }
+
+  onMount(() => {});
+
   function getSelected(sel) {
     current = sel;
+    $postType = sel;
+
+    getPosts($subreddit, $limit, $postType);
   }
 </script>
 

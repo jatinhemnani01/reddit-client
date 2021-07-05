@@ -6,10 +6,10 @@
   import { subreddit } from "$lib/stores/subreddit";
   import { limit } from "$lib/stores/limit";
   import { postType } from "$lib/stores/postType";
-  async function getPosts(subreddit, limit, postType, after) {
+  async function getPosts(sr, limit, postType, after) {
     try {
       $loading = true;
-      const url = `https://www.reddit.com/r/${subreddit}/${postType}.json?limit=${limit}&after=${after}`;
+      const url = `https://www.reddit.com/r/${sr}/${postType}.json?limit=${limit}&after=${after}`;
       let res = await fetch(url);
       let data = await res.json();
       $posts = data.data.children;
