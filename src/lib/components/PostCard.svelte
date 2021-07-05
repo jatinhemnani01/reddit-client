@@ -10,18 +10,6 @@
   export let commentsCount;
   export let author = "";
   let isOpen = false;
-  function getVideoUrl(post) {
-    if (post.media) {
-      return post.media.reddit_video.fallback_url;
-    }
-    // const parts = post.url.split(".");
-    // parts.pop();
-    // return parts.concat(".mp4").join("");
-  }
-
-  function isVideo(post) {
-    return post.media || post.url.match(/mp4|gifv|mkv|mov|webm$/);
-  }
 
   function isImage(url) {
     return url.match(/png|jpg|jpeg|gif|wepb$/);
@@ -48,10 +36,10 @@
           class="rounded object-contain max-w-lg min-w-0"
         />
       {/if}
-      {#if isVideo(data)}
+      {#if data.is_video}
         <!-- svelte-ignore a11y-media-has-caption -->
         <video controls loop class="rounded object-contain max-w-lg min-w-0">
-          <source type="video/mp4" src={getVideoUrl(data)} />
+          <source type="video/mp4" src={data.media.reddit_video.fallback_url} />
         </video>
       {/if}
     </div>
