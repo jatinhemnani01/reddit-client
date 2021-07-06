@@ -20,8 +20,8 @@
       afterPost = data.data.after;
       $loading = false;
     } catch (error) {
-      throw error;
       $loading = true;
+      throw error;
     }
   }
 
@@ -35,8 +35,8 @@
       afterPost = data.data.after;
       $loading = false;
     } catch (error) {
-      throw error;
       $loading = true;
+      throw error;
     }
   }
 
@@ -52,7 +52,7 @@
 
   onMount(() => {
     getPosts($subreddit, $limit, $postType, "");
-    loadMoreHandler();
+    // loadMoreHandler();
   });
 </script>
 
@@ -72,3 +72,16 @@
     />
   </div>
 {/each}
+
+{#if $posts.length >= 5}
+  <div class="flex justify-center" style="background-color: #22252b;">
+    <button
+      class="m-5 bg-yellow-400 p-3 text-lg font-medium w-60 rounded"
+      on:click={() => {
+        getPostsWith($subreddit, $limit, $postType, afterPost);
+      }}
+    >
+      Load More
+    </button>
+  </div>
+{/if}

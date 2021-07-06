@@ -17,8 +17,8 @@
       $posts = data.data.children;
       $loading = false;
     } catch (error) {
-      throw error;
       $loading = true;
+      throw error;
     }
   }
 
