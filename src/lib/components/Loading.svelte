@@ -5,7 +5,7 @@
 <style>
   .demo:empty {
     margin: auto;
-    width: 500px;
+    width: 100%;
     height: 600px; /* change height to see repeat-y behavior */
     background-image: radial-gradient(
         circle 50px at 50px 50px,
