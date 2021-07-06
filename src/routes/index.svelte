@@ -81,7 +81,9 @@
         getPostsWith($subreddit, $limit, $postType, afterPost);
       }}
     >
-      Load More
-    </button>
+      <i class={$loading ? "fa fa-refresh fa-spin mr-2" : ""} />{$loading
+        ? "Loading"
+        : "Load More"}</button
+    >
   </div>
 {/if}

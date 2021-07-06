@@ -8,6 +8,7 @@
   let val = "";
   let timer;
   let suggestions = [];
+  let afterPost = "";
 
   async function getPosts(sr, limit, postType, after) {
     $posts = [];
@@ -17,6 +18,7 @@
     if (res.ok) {
       let data = await res.json();
       $posts = data.data.children;
+      afterPost = data.data.after;
       $loading = false;
     }
   }
@@ -52,7 +54,7 @@
 
     <form
       on:submit|preventDefault={() => {
-        getPosts($subreddit, $limit, $postType, "");
+        getPosts($subreddit, $limit, $postType, afterPost);
         document.activeElement.blur();
       }}
       class="flex flex-row items-center ml-5 justify-center "
