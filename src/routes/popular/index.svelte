@@ -3,17 +3,15 @@
   import { onMount } from "svelte";
   import { posts } from "$lib/stores/posts";
   import { loading } from "$lib/stores/loading";
-  import { subreddit } from "$lib/stores/subreddit";
-  import { limit } from "$lib/stores/limit";
   import { postType } from "$lib/stores/postType";
   import Loading from "$lib/components/Loading.svelte";
 
   let afterPost = "";
 
-  async function getPosts(sr, limit, postType, after) {
+  async function getPosts(postType, after) {
     try {
       $loading = true;
-      const url = `https://www.reddit.com/r/${sr}/${postType}.json?limit=${limit}&after=${after}`;
+      const url = `https://www.reddit.com/r/popular/${postType}.json?limit=10&after=${after}`;
       let res = await fetch(url);
       let data = await res.json();
       $posts = data.data.children;
@@ -25,10 +23,10 @@
     }
   }
 
-  async function getPostsWith(sr, limit, postType, after) {
+  async function getPostsWith(postType, after) {
     try {
       $loading = true;
-      const url = `https://www.reddit.com/r/${sr}/${postType}.json?limit=${limit}&after=${after}`;
+      const url = `https://www.reddit.com/r/popular/${postType}.json?limit=10&after=${after}`;
       let res = await fetch(url);
       let data = await res.json();
       $posts = [...$posts, ...data.data.children];
@@ -41,7 +39,7 @@
   }
 
   onMount(() => {
-    getPosts($subreddit, $limit, $postType, "");
+    getPosts($postType, "");
   });
 </script>
 
@@ -67,7 +65,7 @@
     <button
       class="m-5 bg-yellow-400 p-3 text-lg font-medium w-60 rounded"
       on:click={() => {
-        getPostsWith($subreddit, $limit, $postType, afterPost);
+        getPostsWith($postType, afterPost);
       }}
     >
       <i class={$loading ? "fa fa-refresh fa-spin mr-2" : ""} />{$loading

@@ -5,7 +5,7 @@
   import { posts } from "$lib/stores/posts";
   import { onMount } from "svelte";
   import { limit } from "$lib/stores/limit";
-  let current = "best";
+  let current = "hot";
 
   async function getPosts(sr, limit, postType, after) {
     try {

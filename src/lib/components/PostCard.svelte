@@ -18,7 +18,7 @@
 </script>
 
 <div
-  transition:fade={{ duration: 400, delay: 100 }}
+  in:fade={{ duration: 400, delay: 100 }}
   id="card"
   class="rounded shadow border w-full bg-gray-800 mt-1 text-gray-300 "
 >

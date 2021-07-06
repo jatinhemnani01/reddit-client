@@ -11,15 +11,19 @@
   let afterPost = "";
 
   async function getPosts(sr, limit, postType, after) {
-    $posts = [];
-    $loading = true;
-    const url = `https://www.reddit.com/r/${sr}/${postType}.json?limit=${limit}&after=${after}`;
-    let res = await fetch(url);
-    if (res.ok) {
-      let data = await res.json();
-      $posts = data.data.children;
-      afterPost = data.data.after;
-      $loading = false;
+    try {
+      $posts = [];
+      $loading = true;
+      const url = `https://www.reddit.com/r/${sr}/${postType}.json?limit=${limit}&after=${after}`;
+      let res = await fetch(url);
+      if (res.ok) {
+        let data = await res.json();
+        $posts = data.data.children;
+        afterPost = data.data.after;
+        $loading = false;
+      }
+    } catch (error) {
+      throw error;
     }
   }
 
@@ -44,13 +48,15 @@
 
 <nav class="w-full bg-gray-900 flex flex-row item-center justify-between ">
   <div class="flex flex-row item-center ">
-    <img
-      loading="lazy"
-      id="logo"
-      class="w-12 ml-4 mt-1 mb-1"
-      src="https://logodownload.org/wp-content/uploads/2018/02/reddit-logo-16.png"
-      alt="Reddit Logo"
-    />
+    <a href="/">
+      <img
+        loading="lazy"
+        id="logo"
+        class="w-12 ml-4 mt-1 mb-1"
+        src="https://logodownload.org/wp-content/uploads/2018/02/reddit-logo-16.png"
+        alt="Reddit Logo"
+      />
+    </a>
 
     <form
       on:submit|preventDefault={() => {
@@ -80,7 +86,7 @@
     id="list"
     class="text-white flex flex-row items-center justify-between list-none mr-5"
   >
-    <li class="mr-5">Popular</li>
+    <a href="/popular"><li class="mr-5">Popular</li></a>
     <li>r/{$subreddit}</li>
   </ul>
 </nav>
