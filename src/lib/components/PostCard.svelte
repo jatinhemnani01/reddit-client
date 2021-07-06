@@ -1,6 +1,7 @@
 <script>
   import ActionButtons from "$lib/components/ActionButtons.svelte";
   import Modal from "$lib/components/Modal.svelte";
+  import { fade } from "svelte/transition";
 
   export let imgUrl = "";
   export let subreddit = "";
@@ -17,6 +18,7 @@
 </script>
 
 <div
+  transition:fade={{ duration: 400, delay: 100 }}
   id="card"
   class="rounded shadow border w-full bg-gray-800 mt-1 text-gray-300 "
 >
