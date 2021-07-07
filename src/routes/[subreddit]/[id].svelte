@@ -1,5 +1,7 @@
 <script>
   import { page } from "$app/stores";
+  import CommentCard from "$lib/components/CommentCard.svelte";
+  import Loading from "$lib/components/Loading.svelte";
   import PostCard from "$lib/components/PostCard.svelte";
   import { loading } from "$lib/stores/loading";
   import { onMount } from "svelte";
@@ -26,6 +28,14 @@
   });
 </script>
 
+<svelte:head>
+  <title>Reddit Client | Comments</title>
+</svelte:head>
+
+{#if $loading}
+  <Loading />
+{/if}
+
 {#each child as item}
   <div class="flex justify-center" style="background-color: #22252b;">
     <PostCard
@@ -41,5 +51,14 @@
 {/each}
 
 {#each comments as item}
-  <div>{item.data.body}</div>
+  <div
+    class="flex flex-col items-center justify-center w-full"
+    style="background-color: #22252b;"
+  >
+    <CommentCard
+      author={item.data.author}
+      title={item.data.body}
+      upvote={item.data.ups}
+    />
+  </div>
 {/each}

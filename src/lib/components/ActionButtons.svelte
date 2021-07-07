@@ -1,6 +1,6 @@
 <script>
   export let upvote = 20;
-  export let commentsCount = 0;
+  export let commentsCount = "";
   export let href = "";
 </script>
 
