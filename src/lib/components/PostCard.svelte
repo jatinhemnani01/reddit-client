@@ -3,6 +3,7 @@
   import Modal from "$lib/components/Modal.svelte";
   import { fade } from "svelte/transition";
 
+  export let href = "";
   export let imgUrl = "";
   export let subreddit = "";
   export let title = "";
@@ -27,7 +28,11 @@
     Posted by <span class="text-yellow-600">u/{author}</span>
   </div>
   <div class=" flex flex-col justify-between p-2 ">
-    <div class="text-xl font-bold  flex ml-5 items-center mb-5">{title}</div>
+    <a {href}
+      ><div class="text-xl font-bold  flex ml-5 items-center mb-5">
+        {title}
+      </div></a
+    >
     <div class="flex justify-center ">
       {#if isImage(imgUrl)}
         <img
@@ -48,7 +53,7 @@
     </div>
   </div>
   <hr style="border-top: 1px solid white;" />
-  <ActionButtons {commentsCount} {upvote} />
+  <ActionButtons {href} {commentsCount} {upvote} />
 </div>
 
 <Modal {isOpen}>
