@@ -56,6 +56,7 @@
       upvote={item.data.ups}
       subreddit={item.data.subreddit}
       author={item.data.author}
+      href="/{item.data.subreddit}/{item.data.id}"
     />
   </div>
 {/each}
