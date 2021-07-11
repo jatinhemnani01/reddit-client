@@ -86,7 +86,7 @@
     id="list"
     class="text-white flex flex-row items-center justify-between list-none mr-5"
   >
-    <a href="/popular"><li class="mr-5">Popular</li></a>
+    <a sveltekit:prefetch href="/popular"><li class="mr-5">Popular</li></a>
     <li>r/{$subreddit}</li>
   </ul>
 </nav>
