@@ -28,7 +28,7 @@
     Posted by <span class="text-yellow-600">u/{author}</span>
   </div>
   <div class=" flex flex-col justify-between p-2 ">
-    <a {href}
+    <a sveltekit:prefetch {href}
       ><div class="text-xl font-bold  flex ml-5 items-center mb-5">
         {title}
       </div></a
