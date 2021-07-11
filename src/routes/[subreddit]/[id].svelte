@@ -22,7 +22,6 @@
 
 <script>
   import CommentCard from "$lib/components/CommentCard.svelte";
-  import Loading from "$lib/components/Loading.svelte";
   import PostCard from "$lib/components/PostCard.svelte";
 
   export let comments;
