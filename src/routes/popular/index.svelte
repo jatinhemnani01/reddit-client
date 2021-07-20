@@ -1,5 +1,4 @@
 <script context="module">
-  export const prerender = true;
 
   export async function load({ page, fetch }) {
     let res = await fetch("https://www.reddit.com/r/popular/hot.json?limit=10");
